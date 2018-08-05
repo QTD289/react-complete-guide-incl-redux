@@ -5,20 +5,20 @@ import Person from "./Person/Person";
 class App extends Component {
   state = {
     persons: [
-      { id: 'q', name: "Max 1", age: 20 },
-      { id: 'w', name: "Max 2", age: 30 },
-      { id: 'e', name: "Max 3", age: 40 }
+      { id: "q", name: "Max 1", age: 20 },
+      { id: "w", name: "Max 2", age: 30 },
+      { id: "e", name: "Max 3", age: 40 }
     ],
     otherState: "other value",
     showPersons: false
   };
 
-  deletePersonHandler = (personIndex) => {
+  deletePersonHandler = personIndex => {
     // const persons = this.state.persons.slice();
     const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
-    this.setState({persons: persons})
-  }
+    this.setState({ persons: persons });
+  };
 
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => {
@@ -61,13 +61,15 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <Person
-              click={() => this.deletePersonHandler(index)}
-              name={person.name}
-              age={person.age}
-              key={person.id}
-              changed={(event) => this.nameChangedHandler(event, person.id)}
-            />
+            return (
+              <Person
+                click={() => this.deletePersonHandler(index)}
+                name={person.name}
+                age={person.age}
+                key={person.id}
+                changed={event => this.nameChangedHandler(event, person.id)}
+              />
+            );
           })}
         </div>
       );
@@ -76,7 +78,6 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Hi</h1>
-        {/* Performance impact */}
         <button style={style} onClick={this.togglePersonsHandler}>
           Toggle Persons
         </button>
